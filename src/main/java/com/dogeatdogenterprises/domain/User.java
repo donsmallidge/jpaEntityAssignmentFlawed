@@ -1,7 +1,12 @@
 package com.dogeatdogenterprises.domain;
 
+import com.dogeatdogenterprises.domain.security.Role;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by donaldsmallidge on 1/8/17.
@@ -23,6 +28,12 @@ public class User  extends AbstractDomainClass {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Cart cart;
+
+    @ManyToMany
+    @JoinTable
+    // ~ defaults to @JoinTable(name = "USER_ROLE", joinColumns = "role_id"),
+    //  inverseJoinColumns = @joinColumn(name = "user_id")
+    private List<Role> roles = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -71,5 +82,28 @@ public class User  extends AbstractDomainClass {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    // support bi-directional relationship
+    public void addRole(Role role) {
+        if (!this.roles.contains(role)) {
+            this.roles.add(role);
+        }
+        if (!role.getUsers().contains(this)) {
+            role.getUsers().add(this);
+        }
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+        role.getUsers().remove(this);
     }
 }

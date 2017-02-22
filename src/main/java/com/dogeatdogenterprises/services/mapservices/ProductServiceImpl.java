@@ -39,10 +39,10 @@ public class ProductServiceImpl extends AbstractMapService implements ProductSer
         super.delete(id);
     }
 
+/* SUPERSEDED: see SpringJPABootstrap
     @Override
     protected void loadDomainObjects() {
 
-/* SUPERSEDED: see SpringJPABootstrap
         domainMap = new HashMap<>();
 
         Product product1 = new Product();
@@ -84,7 +84,7 @@ public class ProductServiceImpl extends AbstractMapService implements ProductSer
         product5.setImageUrl("http://example.com/product5");
 
         domainMap.put(5, product5);
-    */
 
     }
+    */
 }

@@ -13,7 +13,7 @@ public abstract class AbstractMapService {
 
     public AbstractMapService() {
         domainMap = new HashMap<>();
-        loadDomainObjects();
+        //loadDomainObjects();
     }
 
     public List<DomainObject> listAll() {
@@ -48,6 +48,6 @@ public abstract class AbstractMapService {
     }
 
     /* NO LONGER NEEDED? - it is called from the constructor! */
-    protected abstract void loadDomainObjects();
+//    protected abstract void loadDomainObjects();
 
 }

@@ -34,8 +34,8 @@ public class OrderServiceMapImpl extends AbstractMapService implements OrderServ
         super.delete(id);
     }
 
-    @Override
-    protected void loadDomainObjects() {
+//    @Override
+//    protected void loadDomainObjects() {
         // not part of instructor code!
-    }
+//    }
 }

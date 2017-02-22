@@ -41,9 +41,9 @@ public class CustomerServiceImpl extends AbstractMapService implements CustomerS
         super.delete(id);
     }
 
+/* SUPERSEDED: see SpringJPABootstrap
     @Override
     protected void loadDomainObjects() {
-/* SUPERSEDED: see SpringJPABootstrap
         domainMap = new HashMap<>();
 
         Customer customer1 = new Customer();
@@ -115,6 +115,6 @@ public class CustomerServiceImpl extends AbstractMapService implements CustomerS
         customer5.setZipCode("04255");
 
         domainMap.put(5, customer5);
-    */
     }
+    */
 }

@@ -1,11 +1,9 @@
 package com.dogeatdogenterprises.bootstrap;
 
 import com.dogeatdogenterprises.domain.*;
+import com.dogeatdogenterprises.domain.security.Role;
 import com.dogeatdogenterprises.enums.OrderStatus;
-import com.dogeatdogenterprises.services.CustomerService;
-import com.dogeatdogenterprises.services.OrderService;
-import com.dogeatdogenterprises.services.ProductService;
-import com.dogeatdogenterprises.services.UserService;
+import com.dogeatdogenterprises.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -22,6 +20,8 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 
     private ProductService productService;
     private UserService userService;
+    private RoleService roleService;
+
 
     @Autowired
     public void setProductService(ProductService productService) {
@@ -35,6 +35,12 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
         this.userService = userService;
     }
 
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+
+        this.roleService = roleService;
+    }
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
@@ -42,6 +48,30 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
         loadUsersAndCustomers();
         loadCarts();
         loadOrderHistory();
+        loadRoles();
+        assignUsersToDefaultRole();
+    }
+
+    private void assignUsersToDefaultRole() {
+        List<Role> roles = (List<Role>) roleService.listAll();
+        List<User> users = (List<User>) userService.listAll();
+
+
+        roles.forEach(role -> {
+            if (role.getRole().equalsIgnoreCase("CUSTOMER")) {
+                users.forEach(user -> {
+                    user.addRole(role);
+                    userService.saveOrUpdate(user);
+                });
+            }
+        });
+    }
+
+    public void loadRoles() {
+
+        Role role = new Role();
+        role.setRole("CUSTOMER");
+        roleService.saveOrUpdate(role);
     }
 
     private void loadOrderHistory() {

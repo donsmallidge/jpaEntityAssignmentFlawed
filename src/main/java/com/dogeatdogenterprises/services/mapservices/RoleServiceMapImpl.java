@@ -2,6 +2,8 @@ package com.dogeatdogenterprises.services.mapservices;
 
 import com.dogeatdogenterprises.domain.DomainObject;
 import com.dogeatdogenterprises.domain.User;
+import com.dogeatdogenterprises.domain.security.Role;
+import com.dogeatdogenterprises.services.RoleService;
 import com.dogeatdogenterprises.services.UserService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,7 @@ import java.util.List;
  */
 @Service
 @Profile("map")
-public class UserServiceMapImpl extends AbstractMapService implements UserService {
+public class RoleServiceMapImpl extends AbstractMapService implements RoleService {
 
     @Override
     public List<DomainObject> listAll() {
@@ -22,15 +24,15 @@ public class UserServiceMapImpl extends AbstractMapService implements UserServic
     }
 
     @Override
-    public User getById(Integer id) {
+    public Role getById(Integer id) {
 
-        return (User) super.getById(id);
+        return (Role) super.getById(id);
     }
 
     @Override
-    public User saveOrUpdate(User domainObject) {
+    public Role saveOrUpdate(Role domainObject) {
 
-        return (User) super.saveOrUpdate(domainObject);
+        return (Role) super.saveOrUpdate(domainObject);
     }
 
     @Override
