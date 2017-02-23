@@ -59,7 +59,12 @@ public class CustomerServiceJpaDaoImpl extends AbstractJpaDaoService implements 
     public void delete(Integer id) {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
-        em.remove(em.find(Customer.class, id));
+
+        Customer customer = em.find(Customer.class, id);
+        customer.getUser().setCustomer(null); // we don't want to delete user with customer delete
+        customer.setUser(null); // need to null out user due to cascade type in mapping
+        em.merge(customer); // save removal of user
+        em.remove(customer);
         em.getTransaction().commit();
     }
 
