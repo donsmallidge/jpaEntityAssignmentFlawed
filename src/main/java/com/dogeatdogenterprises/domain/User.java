@@ -73,7 +73,9 @@ public class User  extends AbstractDomainClass {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
-        customer.setUser(this);
+        if (customer != null) { // check for null to avoid NPE
+            customer.setUser(this);
+        }
     }
 
     public Cart getCart() {
